@@ -30,6 +30,7 @@ Download either win-x64 or win-arm from github. \
 Links: 
  - win-64x -- https://github.com/Adisol07/domaincheck/tree/main/bin/Release/net8.0/win-x64
  - win-arm -- https://github.com/Adisol07/domaincheck/tree/main/bin/Release/net8.0/win-arm64
+   
 Then put that folder somewhere on your system and create a shortcut for file `domaincheck.exe` \
 Put this shortcut to `C:\Windows\System32`
 #### MacOS
@@ -37,6 +38,7 @@ Download either osx-x64 or osx-arm from github. \
 Links: 
  - osx-64x -- https://github.com/Adisol07/domaincheck/tree/main/bin/Release/net8.0/osx-x64
  - osx-arm -- https://github.com/Adisol07/domaincheck/tree/main/bin/Release/net8.0/osx-arm64
+   
 Then put that folder somewhere on your system. \
 Then run this command in terminal: `echo "export PATH=\"{folder_location}/domaincheck\"" >> ~/.zshrc` (ZSH is most common but you can change shell) \
 Then restart terminal.
@@ -46,6 +48,7 @@ Download either linux-x64 or linux-arm from github. \
 Links: 
  - linux-64x -- https://github.com/Adisol07/domaincheck/tree/main/bin/Release/net8.0/linux-x64
  - linux-arm -- https://github.com/Adisol07/domaincheck/tree/main/bin/Release/net8.0/linux-arm64
+   
 Then put that folder somewhere on your system. \
 Then run this command in terminal: `echo "export PATH=\"{folder_location}/domaincheck\"" >> ~/.bashrc` (Bash is most common but you can change shell) \
 Then restart terminal.
