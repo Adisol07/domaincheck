@@ -94,6 +94,12 @@ class Program
 
     static void Main(string[] args)
     {
+        // For readme
+        // foreach (string ending in AllEndings)
+        // {
+        //     System.Console.WriteLine(" - " + ending);
+        // }
+
         if (args.Length <= 0)
         {
             Console.WriteLine("You must provide an argument");
