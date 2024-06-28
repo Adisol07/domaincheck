@@ -18,14 +18,35 @@ Example: `domain_name.#`
  - ._ -> checks other endings
 
 ## Installation
-#### Windows
-Coming Soon
+Download executible directory from github based on your platform \
+e.g https://github.com/Adisol07/domaincheck/tree/main/bin/Release/net8.0/osx-arm64/ \
+Then you need to add the binary to your shell path. 
 
+### Guide for specific operating systems:
+#### Windows
+Download either win-x64 or win-arm from github. \
+Links: 
+ - win-64x -- Coming Soon
+ - win-arm -- https://github.com/Adisol07/domaincheck/tree/main/bin/Release/net8.0/win-arm64
+Then put that folder somewhere on your system and create a shortcut for file `domaincheck.exe` \
+Put this shortcut to `C:\Windows\System32`
 #### MacOS
-Execute this command in terminal: `coming soon`
+Download either osx-x64 or osx-arm from github. \
+Links: 
+ - osx-64x -- Coming Soon
+ - osx-arm -- https://github.com/Adisol07/domaincheck/tree/main/bin/Release/net8.0/osx-arm64
+Then put that folder somewhere on your system. \
+Then run this command in terminal: `echo "export PATH=\"{folder_location}/domaincheck\"" >> ~/.zshrc` (ZSH is most common but you can change shell) \
+Then restart terminal.
 
 #### Linux
-Coming Soon
+Download either linux-x64 or linux-arm from github. \
+Links: 
+ - linux-64x -- Coming Soon
+ - linux-arm -- https://github.com/Adisol07/domaincheck/tree/main/bin/Release/net8.0/linux-arm64
+Then put that folder somewhere on your system. \
+Then run this command in terminal: `echo "export PATH=\"{folder_location}/domaincheck\"" >> ~/.bashrc` (Bash is most common but you can change shell) \
+Then restart terminal.
 
 ## License and usage
 You can use this tool and its source code how you like. \
