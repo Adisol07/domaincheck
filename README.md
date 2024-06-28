@@ -55,7 +55,7 @@ You can use this tool and its source code how you like. \
 No restrictions or licenses.
 
 ## Supported domain endings
-If you want to add a domain ending, create an issue here on github with label `domain ending`
+If you want to add a domain ending, create an issue here on github with title: "Domain ending request: [domain ending]"
 #### List: 
  - com
  - net
