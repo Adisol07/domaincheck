@@ -162,6 +162,8 @@ class Program
                 Console.WriteLine("Free");
             }
         }
+
+        Console.ResetColor();
     }
 
     public static bool DomainExists(string domain)
