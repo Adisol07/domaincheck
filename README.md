@@ -9,6 +9,8 @@ This simple command-line tool is for checking domain availability. \
 It currently has limited number of domain endings. \
 You can check for multiple domain endings like this: `domain_name.com+.net+.org`
 
+![Screenshot of checking test using standard wildcard](https://github.com/Adisol07/domaincheck/blob/main/screenshot1.jpeg?raw=true)
+
 ## Wildcards
 Example: `domain_name.#`
  - .@ -> checks all endings
