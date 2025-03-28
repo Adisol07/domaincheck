@@ -16,6 +16,7 @@ class Program
         "online",
         "tech",
         "me",
+        "dev",
     ];
     public static string[] ShopEndings = [
         "shop",
@@ -91,6 +92,45 @@ class Program
         "xyz",
         "zip",
     ];
+    public static char[] PossibleCharacters = [
+        'a',
+        'b',
+        'c',
+        'd',
+        'e',
+        'f',
+        'g',
+        'h',
+        'i',
+        'j',
+        'k',
+        'l',
+        'm',
+        'n',
+        'o',
+        'p',
+        'q',
+        'r',
+        's',
+        't',
+        'u',
+        'v',
+        'w',
+        'x',
+        'y',
+        'z',
+        '0',
+        '1',
+        '2',
+        '3',
+        '4',
+        '5',
+        '6',
+        '7',
+        '8',
+        '9',
+        '-'
+    ];
 
     static void Main(string[] args)
     {
@@ -102,68 +142,73 @@ class Program
 
         if (args.Length <= 0)
         {
-            Console.WriteLine("You must provide an argument");
+            Console.WriteLine("You must provide at least one argument");
             return;
         }
 
-        string arg = args[0];
+        foreach (string arg in args)
+        {
+            string n = arg.Remove(arg.IndexOf("."));
+            string[] names = GenerateCombinations(n, PossibleCharacters).ToArray();
 
-        string name = arg.Remove(arg.IndexOf("."));
+            string[] domainEndings = arg.Remove(0, arg.IndexOf(".") + 1).Split("+.");
 
-        string[] domainEndings = arg.Remove(0, arg.IndexOf(".") + 1).Split("+.");
+            if (arg.EndsWith(".@"))
+            {
+                domainEndings = AllEndings;
+                Console.WriteLine("Using 'ALL' wildcard -> using " + domainEndings.Length + " domain endings");
+            }
+            else if (arg.EndsWith(".#"))
+            {
+                domainEndings = StandardEndings;
+                Console.WriteLine("Using 'STANDARD' wildcard -> using " + domainEndings.Length + " domain endings");
+            }
+            else if (arg.EndsWith(".$"))
+            {
+                domainEndings = ShopEndings;
+                Console.WriteLine("Using 'SHOP' wildcard -> using " + domainEndings.Length + " domain endings");
+            }
+            else if (arg.EndsWith(".!"))
+            {
+                domainEndings = CountryEndings;
+                Console.WriteLine("Using 'COUNTRY' wildcard -> using " + domainEndings.Length + " domain endings");
+            }
+            else if (arg.EndsWith("._"))
+            {
+                domainEndings = Other;
+                Console.WriteLine("Using 'OTHER' wildcard -> using " + domainEndings.Length + " domain endings");
+            }
 
-        if (arg.EndsWith(".@"))
-        {
-            domainEndings = AllEndings;
-            Console.WriteLine("Using 'ALL' wildcard -> using " + domainEndings.Length + " domain endings");
-        }
-        else if (arg.EndsWith(".#"))
-        {
-            domainEndings = StandardEndings;
-            Console.WriteLine("Using 'STANDARD' wildcard -> using " + domainEndings.Length + " domain endings");
-        }
-        else if (arg.EndsWith(".$"))
-        {
-            domainEndings = ShopEndings;
-            Console.WriteLine("Using 'SHOP' wildcard -> using " + domainEndings.Length + " domain endings");
-        }
-        else if (arg.EndsWith(".!"))
-        {
-            domainEndings = CountryEndings;
-            Console.WriteLine("Using 'COUNTRY' wildcard -> using " + domainEndings.Length + " domain endings");
-        }
-        else if (arg.EndsWith("._"))
-        {
-            domainEndings = Other;
-            Console.WriteLine("Using 'OTHER' wildcard -> using " + domainEndings.Length + " domain endings");
-        }
+            foreach (string name in names)
+            {
+                foreach (string ending in domainEndings)
+                {
+                    Console.ResetColor();
 
-        foreach (string ending in domainEndings)
-        {
+                    if (!AllEndings.Contains(ending))
+                    {
+                        Console.Write(name + "." + ending + ": ");
+                        Console.ForegroundColor = ConsoleColor.DarkYellow;
+                        Console.WriteLine("Unsupported ending");
+                        continue;
+                    }
+
+                    Console.Write(name + "." + ending + ": ");
+                    if (DomainExists(name + "." + ending))
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("Exists");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.WriteLine("Free");
+                    }
+                }
+            }
+
             Console.ResetColor();
-
-            if (!AllEndings.Contains(ending))
-            {
-                Console.Write(name + "." + ending + ": ");
-                Console.ForegroundColor = ConsoleColor.DarkYellow;
-                Console.WriteLine("Unsupported ending");
-                continue;
-            }
-
-            Console.Write(name + "." + ending + ": ");
-            if (DomainExists(name + "." + ending))
-            {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("Exists");
-            }
-            else
-            {
-                Console.ForegroundColor = ConsoleColor.Green;
-                Console.WriteLine("Free");
-            }
         }
-
-        Console.ResetColor();
     }
 
     public static bool DomainExists(string domain)
@@ -177,5 +222,62 @@ class Program
         {
             return false;
         }
+    }
+
+    public static List<string> GenerateCombinations(string input, char[] characters)
+    {
+        int at_count = input.Count(c => c == '@');
+
+        List<string> combinations = new List<string>();
+        GenerateCombinationsRecursive(input, characters, at_count, 0, new char[at_count], combinations);
+
+        return combinations;
+    }
+
+    private static void GenerateCombinationsRecursive(
+        string input,
+        char[] characters,
+        int atCount,
+        int currentIndex,
+        char[] currentCombination,
+        List<string> combinations)
+    {
+        if (currentIndex == atCount)
+        {
+            string result = ReplaceAtSymbols(input, currentCombination);
+            combinations.Add(result);
+            return;
+        }
+
+        for (int i = 0; i < characters.Length; i++)
+        {
+            currentCombination[currentIndex] = characters[i];
+
+            GenerateCombinationsRecursive(
+                input,
+                characters,
+                atCount,
+                currentIndex + 1,
+                currentCombination,
+                combinations
+            );
+        }
+    }
+
+    private static string ReplaceAtSymbols(string input, char[] replacementChars)
+    {
+        char[] result = input.ToCharArray();
+
+        int char_index = 0;
+
+        for (int i = 0; i < result.Length; i++)
+        {
+            if (result[i] == '@')
+            {
+                result[i] = replacementChars[char_index];
+                char_index++;
+            }
+        }
+        return new string(result);
     }
 }
